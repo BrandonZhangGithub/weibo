@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+<!-- 内容区 -->
+{% block left %}
+
+<!-- 密码错误的提示 -->
+{% if warning %}
+<div class="alert alert-danger" role="alert">{{ warning }}</div>
+{% end %}
+
+<form action="/user/login" method="POST">
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label text-right">昵称</label>
+        <div class="col-sm-4">
+            <input name="nickname" type="text" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label text-right">密码</label>
+        <div class="col-sm-4">
+            <input name="password" type="password" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4 offset-sm-2">
+            <button type="submit" class="btn btn-primary btn-sm">
+                提交
+            </button>
+        </div>
+    </div>
+</form>
+{% end %}

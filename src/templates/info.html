@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+<!-- 扩展 CSS -->
+{% block ext_css %}
+<style>
+    .item {
+        background-color: transparent;
+    }
+    .follow {
+        margin-top: 20px;
+    }
+</style>
+{% end %}
+
+<!-- 内容区 -->
+{% block left %}
+
+<div class="jumbotron">
+    <h1 class="display-4">用户信息</h1>
+    <br />
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item item">昵称：{{ user.nickname }}</li>
+        <li class="list-group-item item">性别：{{ user.gender }}</li>
+        <li class="list-group-item item">城市：{{ user.city }}</li>
+        <li class="list-group-item item">简介：{{ user.bio }}</li>
+    </ul>
+    {% if is_followed is not None %}
+    <div class="row follow">
+        <div class="col-sm-3 offset-sm-9">
+            {% if is_followed %}
+            <a class="btn btn-primary" href="/user/unfollow?follow_id={{ user.id }}">取消关注</a>
+            {% else %}
+            <a class="btn btn-primary" href="/user/follow?follow_id={{ user.id }}">关注</a>
+            {% end %}
+        </div>
+    </div>
+    {% end %}
+</div>
+{% end %}

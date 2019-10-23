@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>{% block title %}喵哥微博{% end %}</title>
+
+        <style>
+            .left,
+            .right,
+            .footer {
+                padding: 30px;
+            }
+            .top10 {
+                text-overflow: ellipsis;
+            }
+        </style>
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+        {% block ext_css %}{% end %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">喵哥微博</a>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/info">个人信息</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/weibo/follow">关注的微博</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/fans">粉丝</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-8 left">{% block left %}{% end %}</div>
+                <div class="col-4 right">
+                    <h3>热门微博</h3>
+                    <ol class="top10">
+                        {% for _wb_id, _content, _n_like in top10 %}
+                        <li>
+                            <a href="/weibo/show?weibo_id={{ _wb_id }}">{{ _content }}</a>
+                            <span class="text-right">{{ _n_like }}</span>
+                        </li>
+                        {% end %}
+                    </ol>
+                </div>
+
+            </div>
+            <div class="fixed-bottom text-center footer">
+                Copyright@Seamile-2019
+            </div>
+        </div>
+
+        <script src="/static/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="/static/js/popper.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    </body>
+</html>

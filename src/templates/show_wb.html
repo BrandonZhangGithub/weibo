@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+<!-- 内容区 -->
+{% block left %}
+
+<div class="col-sm-12">
+    <span class="h2">
+        <a class="text-info" href="#">{{ user.nickname }}</a>
+    </span>
+    <span class="text-secondary">说：</span>
+</div>
+<br />
+
+<div class="col-sm-12">
+    <div class="alert alert-primary" role="alert">
+        {{ weibo.content }}
+    </div>
+</div>
+
+<!-- 微博发表的时间 -->
+<div class="col-sm-12 text-right text-secondary">
+    {% if is_liked %}
+    <a href="/weibo/dislike?wb_id={{ weibo.id }}">取消点赞</a> ({{ n_like }})
+    {% else %}
+    <a href="/weibo/like?wb_id={{ weibo.id }}">点赞</a> ({{ n_like }})
+    {% end %}
+
+    {{ weibo.created }}
+</div>
+
+<hr />
+
+<!-- 评论区 -->
+<form action="/comment/commit" method="POST">
+    <div class="col-sm-12">
+        <textarea name="content" class="form-control" rows="3"></textarea>
+    </div>
+
+    <input type="hidden" name="wb_id" value="{{ weibo.id }}" />
+
+    <br />
+    <div class="row">
+        <div class="col-sm-2 offset-sm-10">
+            <button type="submit" class="btn btn-primary btn-sm">
+                发表评论
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- 展示当前微博所有的评论 -->
+
+<hr />
+
+<div class="col-sm-12">
+    {% for cmt in all_comments %}
+    <p>
+        {% if cmt.cmt_id == 0 %}
+            <span class="text-info">{{ comment_authors[cmt.user_id].nickname  }}</span> ：
+        {% else %}
+            <span class="text-info">
+                {{ comment_authors[cmt.user_id].nickname  }}
+                对
+                {{ comment_authors[cmt.up_comment.user_id].nickname }}
+            </span> 说 ：
+        {% end %}
+
+        <br>
+
+        {{ cmt.content }}
+        <div class="col-sm-12 text-right text-secondary">
+            <a href="/comment/reply?cmt_id={{ cmt.id }}">回复</a>
+            {{ cmt.created }}
+        </div>
+    </p>
+    <hr>
+    {% end %}
+</div>
+
+{% end %}

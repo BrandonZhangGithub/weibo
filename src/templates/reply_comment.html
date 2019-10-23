@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+<!-- 内容区 -->
+{% block left %}
+
+<div class="col-sm-12">
+    <span class="h2">
+        <a class="text-info" href="#">{{ user.nickname }}</a>
+    </span>
+    <span class="text-secondary">的评论：</span>
+</div>
+<br />
+
+<div class="col-sm-12">
+    <div class="alert alert-secondary" role="alert">
+        {{ comment.content }}
+    </div>
+</div>
+
+<div class="col-sm-12 text-right text-secondary">
+    {{ comment.created }}
+</div>
+
+<hr />
+
+<!-- 回复区 -->
+<form action="/comment/reply" method="POST">
+    <div class="col-sm-12">
+        <textarea name="content" class="form-control" rows="3"></textarea>
+    </div>
+
+    <input type="hidden" name="cmt_id" value="{{ comment.id }}" />
+    <input type="hidden" name="wb_id" value="{{ comment.wb_id }}" />
+
+    <br />
+    <div class="row">
+        <div class="col-sm-2 offset-sm-10">
+            <button type="submit" class="btn btn-primary btn-sm">
+                回复
+            </button>
+        </div>
+    </div>
+</form>
+
+{% end %}

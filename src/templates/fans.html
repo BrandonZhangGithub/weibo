@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+<!-- 内容区 -->
+{% block left %}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>用户名</th>
+            <th>性别</th>
+            <th>城市</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for fans in fans_list %}
+        <tr>
+            <td>{{ fans.nickname }}</td>
+            <td>{{ fans.gender }}</td>
+            <td>{{ fans.city }}</td>
+        </tr>
+        {% end %}
+    </tbody>
+</table>
+
+
+{% end %}
